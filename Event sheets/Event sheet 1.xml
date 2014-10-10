@@ -3,11 +3,15 @@
     <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
     <name>Event sheet 1</name>
     <events>
+        <variable constant="0" name="FireCount" sid="4450832389009594" static="0" type="number">0</variable>
+        <variable constant="0" name="WaterCount" sid="661418659589531" static="0" type="number">0</variable>
+        <variable constant="0" name="EarthCount" sid="3592415294359374" static="0" type="number">0</variable>
+        <variable constant="0" name="WindCount" sid="8086248431475178" static="0" type="number">0</variable>
         <variable constant="0" name="InputAllowed" sid="8538561189869497" static="0" type="number">1</variable>
         <variable constant="0" name="Dragging" sid="9362081435409264" static="0" type="number">0</variable>
         <event-group description="Sets up the starting board" sid="8970451898398164" title="Initialization">
             <sub-events>
-                <event-block collapsed="1" sid="1956441250443193">
+                <event-block sid="1956441250443193">
                     <conditions>
                         <condition id="-2" name="On start of layout" sid="3571015086281687" type="System" />
                     </conditions>
@@ -116,7 +120,7 @@
         </event-group>
         <event-group description="Touch controls and whatnot" sid="5018377039510614" title="Input Handler">
             <sub-events>
-                <event-block collapsed="1" sid="8923728651906909">
+                <event-block sid="8923728651906909">
                     <conditions>
                         <condition id="10" name="On Nth touch start" sid="3399166037867187" type="Touch">
                             <param id="0" name="Touch number">0</param>
@@ -152,7 +156,7 @@
                         </action>
                     </actions>
                 </event-block>
-                <event-block collapsed="1" sid="5537798960679931">
+                <event-block sid="5537798960679931">
                     <conditions>
                         <condition id="-14" name="Compare variable" sid="8500186859849507" type="System">
                             <param id="0" name="Variable">Dragging</param>
@@ -202,6 +206,10 @@
                         </event-block>
                     </sub-events>
                 </event-block>
+                <variable constant="0" name="Fire" sid="3566145887667388" static="0" type="number">0</variable>
+                <variable constant="0" name="Water" sid="8643239212603416" static="0" type="number">0</variable>
+                <variable constant="0" name="Earth" sid="3021177752275383" static="0" type="number">0</variable>
+                <variable constant="0" name="Wind" sid="378568525246095" static="0" type="number">0</variable>
                 <event-block sid="6461328792342791">
                     <conditions>
                         <condition id="17" name="On tap object" sid="8475684172060836" type="Touch">
@@ -217,18 +225,6 @@
                         <action id="-9" name="Set value" sid="3199870303527488" type="System">
                             <param id="0" name="Variable">InputAllowed</param>
                             <param id="1" name="Value">0</param>
-                        </action>
-                        <action behavior="Physics" id="21" name="Set immovable" sid="3912060815018326" type="Earth">
-                            <param id="0" name="Setting">0</param>
-                        </action>
-                        <action behavior="Physics" id="21" name="Set immovable" sid="2601538402973509" type="Fire">
-                            <param id="0" name="Setting">0</param>
-                        </action>
-                        <action behavior="Physics" id="21" name="Set immovable" sid="6284156837795424" type="Water">
-                            <param id="0" name="Setting">0</param>
-                        </action>
-                        <action behavior="Physics" id="21" name="Set immovable" sid="5077608576648934" type="Wind">
-                            <param id="0" name="Setting">0</param>
                         </action>
                     </actions>
                     <sub-events>
@@ -252,7 +248,11 @@
                                 </condition>
                             </conditions>
                             <actions>
-                                <action id="-9" name="Destroy" sid="6193631781723348" type="Earth" />
+                                <action disabled="1" id="-9" name="Destroy" sid="6193631781723348" type="Earth" />
+                                <action id="-10" name="Add to" sid="4701782294400749" type="System">
+                                    <param id="0" name="Variable">Earth</param>
+                                    <param id="1" name="Value">Earth.PickedCount</param>
+                                </action>
                             </actions>
                         </event-block>
                         <event-block sid="2940002094109409">
@@ -275,7 +275,11 @@
                                 </condition>
                             </conditions>
                             <actions>
-                                <action id="-9" name="Destroy" sid="1590069032331252" type="Fire" />
+                                <action disabled="1" id="-9" name="Destroy" sid="1590069032331252" type="Fire" />
+                                <action id="-10" name="Add to" sid="9767209568839654" type="System">
+                                    <param id="0" name="Variable">Fire</param>
+                                    <param id="1" name="Value">Fire.PickedCount</param>
+                                </action>
                             </actions>
                         </event-block>
                         <event-block sid="8704414545776306">
@@ -298,7 +302,11 @@
                                 </condition>
                             </conditions>
                             <actions>
-                                <action id="-9" name="Destroy" sid="6825508394155542" type="Water" />
+                                <action disabled="1" id="-9" name="Destroy" sid="6825508394155542" type="Water" />
+                                <action id="-10" name="Add to" sid="5671501702315253" type="System">
+                                    <param id="0" name="Variable">Water</param>
+                                    <param id="1" name="Value">Water.PickedCount</param>
+                                </action>
                             </actions>
                         </event-block>
                         <event-block sid="2824436676598495">
@@ -321,14 +329,347 @@
                                 </condition>
                             </conditions>
                             <actions>
-                                <action id="-9" name="Destroy" sid="935128639401475" type="Wind" />
+                                <action disabled="1" id="-9" name="Destroy" sid="935128639401475" type="Wind" />
+                                <action id="-10" name="Add to" sid="5796122730553819" type="System">
+                                    <param id="0" name="Variable">Wind</param>
+                                    <param id="1" name="Value">Wind.PickedCount</param>
+                                </action>
                             </actions>
+                        </event-block>
+                        <event-block sid="289588717292779">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="7662447438456449" type="System">
+                                    <param id="0" name="Variable">Fire</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">3</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Add to" sid="9868989397855864" type="System">
+                                    <param id="0" name="Variable">FireCount</param>
+                                    <param id="1" name="Value">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="1905132010801185">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="6710599048968148" type="System">
+                                    <param id="0" name="Variable">Fire</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">4</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Add to" sid="9017089912062114" type="System">
+                                    <param id="0" name="Variable">FireCount</param>
+                                    <param id="1" name="Value">3</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="5317878855715702">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="6304032726983677" type="System">
+                                    <param id="0" name="Variable">Water</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">3</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Add to" sid="8211144154175146" type="System">
+                                    <param id="0" name="Variable">WaterCount</param>
+                                    <param id="1" name="Value">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="205033923899898">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="6553832297047399" type="System">
+                                    <param id="0" name="Variable">Water</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">4</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Add to" sid="4986715761852893" type="System">
+                                    <param id="0" name="Variable">WaterCount</param>
+                                    <param id="1" name="Value">3</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="7426844355864324">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="3783606158795383" type="System">
+                                    <param id="0" name="Variable">Earth</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">3</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Add to" sid="5384705023319087" type="System">
+                                    <param id="0" name="Variable">EarthCount</param>
+                                    <param id="1" name="Value">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="793936628980893">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="2048408653028289" type="System">
+                                    <param id="0" name="Variable">Earth</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">4</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Add to" sid="157111891428626" type="System">
+                                    <param id="0" name="Variable">EarthCount</param>
+                                    <param id="1" name="Value">3</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="8246473308235798">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="6113019800127554" type="System">
+                                    <param id="0" name="Variable">Wind</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">3</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Add to" sid="9310045628861328" type="System">
+                                    <param id="0" name="Variable">WindCount</param>
+                                    <param id="1" name="Value">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="2985817120452284">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="3195707652661523" type="System">
+                                    <param id="0" name="Variable">Wind</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">4</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Add to" sid="6876903574065447" type="System">
+                                    <param id="0" name="Variable">WindCount</param>
+                                    <param id="1" name="Value">3</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block any="1" sid="25312686357333">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="4039883312457412" type="System">
+                                    <param id="0" name="Variable">Earth</param>
+                                    <param id="1" name="Comparison">4</param>
+                                    <param id="2" name="Value">2</param>
+                                </condition>
+                                <condition id="-14" name="Compare variable" sid="8718163869701871" type="System">
+                                    <param id="0" name="Variable">Fire</param>
+                                    <param id="1" name="Comparison">4</param>
+                                    <param id="2" name="Value">2</param>
+                                </condition>
+                                <condition id="-14" name="Compare variable" sid="7345704095407978" type="System">
+                                    <param id="0" name="Variable">Water</param>
+                                    <param id="1" name="Comparison">4</param>
+                                    <param id="2" name="Value">2</param>
+                                </condition>
+                                <condition id="-14" name="Compare variable" sid="9840468810078657" type="System">
+                                    <param id="0" name="Variable">Wind</param>
+                                    <param id="1" name="Comparison">4</param>
+                                    <param id="2" name="Value">2</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <event-block sid="4155187564489649">
+                                    <conditions>
+                                        <condition id="-1" name="Compare X" sid="6160562190592667" type="Earth">
+                                            <param id="0" name="Comparison">3</param>
+                                            <param id="1" name="X co-ordinate">Selector.X + 100</param>
+                                        </condition>
+                                        <condition id="-1" name="Compare X" sid="8708644035471456" type="Earth">
+                                            <param id="0" name="Comparison">5</param>
+                                            <param id="1" name="X co-ordinate">Selector.X-100</param>
+                                        </condition>
+                                        <condition id="-2" name="Compare Y" sid="7155878608670315" type="Earth">
+                                            <param id="0" name="Comparison">3</param>
+                                            <param id="1" name="Y co-ordinate">Selector.Y+100</param>
+                                        </condition>
+                                        <condition id="-2" name="Compare Y" sid="7782984272764937" type="Earth">
+                                            <param id="0" name="Comparison">5</param>
+                                            <param id="1" name="Y co-ordinate">Selector.Y - 100</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-9" name="Destroy" sid="3735418692463245" type="Earth" />
+                                    </actions>
+                                </event-block>
+                                <event-block sid="6047232774441177">
+                                    <conditions>
+                                        <condition id="-1" name="Compare X" sid="2634423308536705" type="Fire">
+                                            <param id="0" name="Comparison">3</param>
+                                            <param id="1" name="X co-ordinate">Selector.X + 100</param>
+                                        </condition>
+                                        <condition id="-1" name="Compare X" sid="4659736414601159" type="Fire">
+                                            <param id="0" name="Comparison">5</param>
+                                            <param id="1" name="X co-ordinate">Selector.X-100</param>
+                                        </condition>
+                                        <condition id="-2" name="Compare Y" sid="2801783607476785" type="Fire">
+                                            <param id="0" name="Comparison">3</param>
+                                            <param id="1" name="Y co-ordinate">Selector.Y+100</param>
+                                        </condition>
+                                        <condition id="-2" name="Compare Y" sid="4394144927736618" type="Fire">
+                                            <param id="0" name="Comparison">5</param>
+                                            <param id="1" name="Y co-ordinate">Selector.Y - 100</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-9" name="Destroy" sid="2770335969898799" type="Fire" />
+                                    </actions>
+                                </event-block>
+                                <event-block sid="7849913769226051">
+                                    <conditions>
+                                        <condition id="-1" name="Compare X" sid="9010683468232082" type="Water">
+                                            <param id="0" name="Comparison">3</param>
+                                            <param id="1" name="X co-ordinate">Selector.X + 100</param>
+                                        </condition>
+                                        <condition id="-1" name="Compare X" sid="8975069973704299" type="Water">
+                                            <param id="0" name="Comparison">5</param>
+                                            <param id="1" name="X co-ordinate">Selector.X-100</param>
+                                        </condition>
+                                        <condition id="-2" name="Compare Y" sid="587700237947608" type="Water">
+                                            <param id="0" name="Comparison">3</param>
+                                            <param id="1" name="Y co-ordinate">Selector.Y+100</param>
+                                        </condition>
+                                        <condition id="-2" name="Compare Y" sid="3119098681025794" type="Water">
+                                            <param id="0" name="Comparison">5</param>
+                                            <param id="1" name="Y co-ordinate">Selector.Y - 100</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-9" name="Destroy" sid="6721460859439339" type="Water" />
+                                    </actions>
+                                </event-block>
+                                <event-block sid="2004239885537821">
+                                    <conditions>
+                                        <condition id="-1" name="Compare X" sid="6141911901992151" type="Wind">
+                                            <param id="0" name="Comparison">3</param>
+                                            <param id="1" name="X co-ordinate">Selector.X + 100</param>
+                                        </condition>
+                                        <condition id="-1" name="Compare X" sid="5499065524391595" type="Wind">
+                                            <param id="0" name="Comparison">5</param>
+                                            <param id="1" name="X co-ordinate">Selector.X-100</param>
+                                        </condition>
+                                        <condition id="-2" name="Compare Y" sid="6293623295064001" type="Wind">
+                                            <param id="0" name="Comparison">3</param>
+                                            <param id="1" name="Y co-ordinate">Selector.Y+100</param>
+                                        </condition>
+                                        <condition id="-2" name="Compare Y" sid="6123552398543133" type="Wind">
+                                            <param id="0" name="Comparison">5</param>
+                                            <param id="1" name="Y co-ordinate">Selector.Y - 100</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-9" name="Destroy" sid="5785473050610973" type="Wind" />
+                                    </actions>
+                                </event-block>
+                                <event-block sid="8981214116784401">
+                                    <conditions>
+                                        <condition id="-10" name="For" sid="6969142861856981" type="System">
+                                            <param id="0" name="Name">&quot;tileRefill&quot;</param>
+                                            <param id="1" name="Start index">0</param>
+                                            <param id="2" name="End index">3</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions />
+                                    <sub-events>
+                                        <variable constant="0" name="tiletype" sid="420925054048585" static="0" type="number">0</variable>
+                                        <event-block sid="5324825032739658">
+                                            <conditions />
+                                            <actions>
+                                                <action id="-9" name="Set value" sid="7808823604338869" type="System">
+                                                    <param id="0" name="Variable">tiletype</param>
+                                                    <param id="1" name="Value">floor(random(4))</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <event-block sid="604563625532658">
+                                            <conditions>
+                                                <condition id="-8" name="Compare two values" sid="2970763916141684" type="System">
+                                                    <param id="0" name="First value">tiletype</param>
+                                                    <param id="1" name="Comparison">0</param>
+                                                    <param id="2" name="Second value">0</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-3" name="Create object" sid="8174257536061228" type="System">
+                                                    <param id="0" name="Object to create">Earth</param>
+                                                    <param id="1" name="Layer">1</param>
+                                                    <param id="2" name="X">Selector.X - 50 + ((loopindex%2) * 100)</param>
+                                                    <param id="3" name="Y">-100 - ((floor(loopindex/2)%2) * 100)</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <event-block sid="4185473761341983">
+                                            <conditions>
+                                                <condition id="-8" name="Compare two values" sid="3652073015933879" type="System">
+                                                    <param id="0" name="First value">tiletype</param>
+                                                    <param id="1" name="Comparison">0</param>
+                                                    <param id="2" name="Second value">1</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-3" name="Create object" sid="4771512403151339" type="System">
+                                                    <param id="0" name="Object to create">Fire</param>
+                                                    <param id="1" name="Layer">1</param>
+                                                    <param id="2" name="X">Selector.X - 50 + ((loopindex%2) * 100)</param>
+                                                    <param id="3" name="Y">-100 - ((floor(loopindex/2)%2) * 100)</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <event-block sid="2303812635770441">
+                                            <conditions>
+                                                <condition id="-8" name="Compare two values" sid="8122645339696344" type="System">
+                                                    <param id="0" name="First value">tiletype</param>
+                                                    <param id="1" name="Comparison">0</param>
+                                                    <param id="2" name="Second value">2</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-3" name="Create object" sid="6657468111022994" type="System">
+                                                    <param id="0" name="Object to create">Water</param>
+                                                    <param id="1" name="Layer">1</param>
+                                                    <param id="2" name="X">Selector.X - 50 + ((loopindex%2) * 100)</param>
+                                                    <param id="3" name="Y">-100 - ((floor(loopindex/2)%2) * 100)</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <event-block sid="4241235262021243">
+                                            <conditions>
+                                                <condition id="-8" name="Compare two values" sid="9521338617062391" type="System">
+                                                    <param id="0" name="First value">tiletype</param>
+                                                    <param id="1" name="Comparison">0</param>
+                                                    <param id="2" name="Second value">3</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-3" name="Create object" sid="7981305508534784" type="System">
+                                                    <param id="0" name="Object to create">Wind</param>
+                                                    <param id="1" name="Layer">1</param>
+                                                    <param id="2" name="X">Selector.X - 50 + ((loopindex%2) * 100)</param>
+                                                    <param id="3" name="Y">-100 - ((floor(loopindex/2)%2) * 100)</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                            </sub-events>
                         </event-block>
                         <event-block sid="3227175465145867">
                             <conditions />
                             <actions>
                                 <action id="-16" name="Wait" sid="5697175720476136" type="System">
-                                    <param id="0" name="Seconds">3</param>
+                                    <param id="0" name="Seconds">0.5</param>
                                 </action>
                                 <action id="-9" name="Set value" sid="1136744867006216" type="System">
                                     <param id="0" name="Variable">InputAllowed</param>
@@ -340,117 +681,506 @@
                 </event-block>
             </sub-events>
         </event-group>
-        <event-group description="Janky fix for bouncy physics" disabled="1" sid="3518683822294703" title="Bounce Fix">
+        <event-group description="" sid="5552943034621613" title="Button Handler">
             <sub-events>
-                <event-block any="1" disabled="1" sid="2186571479408296">
+                <event-block sid="4058826068110077">
                     <conditions>
-                        <condition id="0" name="On collision with another object" sid="312800997006795" type="Earth">
+                        <condition id="-2" name="On start of layout" sid="595877866549284" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="5" name="Set CSS style" sid="5508102743491225" type="Button">
+                            <param id="0" name="Property name">&quot;font-size&quot;</param>
+                            <param id="1" name="Value">&quot;5em&quot;</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <event-block sid="4018834890874266">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="9096494762624603" type="Button">
+                                    <param id="0" name="Unique ID">9</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set CSS style" sid="4323302399627608" type="Button">
+                                    <param id="0" name="Property name">&quot;background-color&quot;</param>
+                                    <param id="1" name="Value">&quot;red&quot;</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="1681504347970894">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="8964582065509562" type="Button">
+                                    <param id="0" name="Unique ID">10</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set CSS style" sid="7659954234582943" type="Button">
+                                    <param id="0" name="Property name">&quot;background-color&quot;</param>
+                                    <param id="1" name="Value">&quot;blue&quot;</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="3120784187181836">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="4684781493337942" type="Button">
+                                    <param id="0" name="Unique ID">12</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set CSS style" sid="9396204301101771" type="Button">
+                                    <param id="0" name="Property name">&quot;background-color&quot;</param>
+                                    <param id="1" name="Value">&quot;green&quot;</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="2530653628476732">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="4992216001504851" type="Button">
+                                    <param id="0" name="Unique ID">11</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set CSS style" sid="2066043536162866" type="Button">
+                                    <param id="0" name="Property name">&quot;background-color&quot;</param>
+                                    <param id="1" name="Value">&quot;yellow&quot;</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block sid="8051107845551913">
+                    <conditions>
+                        <condition id="-1" name="Every tick" sid="6336080659761053" type="System" />
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="3462788994741331">
+                            <conditions>
+                                <condition id="-7" name="Compare instance variable" sid="6114030320223989" type="Button">
+                                    <param id="0" name="Instance variable">Element</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">&quot;Fire&quot;</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Set text" sid="3310732147281397" type="Button">
+                                    <param id="0" name="Text">str(FireCount)</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="3322824403060244">
+                            <conditions>
+                                <condition id="-7" name="Compare instance variable" sid="1699115392344197" type="Button">
+                                    <param id="0" name="Instance variable">Element</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">&quot;Water&quot;</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Set text" sid="187803168052312" type="Button">
+                                    <param id="0" name="Text">str(WaterCount)</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="2671687788627805">
+                            <conditions>
+                                <condition id="-7" name="Compare instance variable" sid="499447693630277" type="Button">
+                                    <param id="0" name="Instance variable">Element</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">&quot;Earth&quot;</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Set text" sid="2334838868270654" type="Button">
+                                    <param id="0" name="Text">str(EarthCount)</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="2884203507631515">
+                            <conditions>
+                                <condition id="-7" name="Compare instance variable" sid="8096153746788069" type="Button">
+                                    <param id="0" name="Instance variable">Element</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">&quot;Wind&quot;</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Set text" sid="2995913739586876" type="Button">
+                                    <param id="0" name="Text">str(WindCount)</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block sid="6026355347164658">
+                    <conditions>
+                        <condition id="0" name="On clicked" sid="7558087800506407" type="Button" />
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="1137879663366032">
+                            <conditions>
+                                <condition id="-7" name="Compare instance variable" sid="5438465016211531" type="Button">
+                                    <param id="0" name="Instance variable">Element</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">&quot;Fire&quot;</param>
+                                </condition>
+                                <condition id="-14" name="Compare variable" sid="3346275603534607" type="System">
+                                    <param id="0" name="Variable">FireCount</param>
+                                    <param id="1" name="Comparison">4</param>
+                                    <param id="2" name="Value">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-11" name="Subtract from" sid="1660727137594607" type="System">
+                                    <param id="0" name="Variable">FireCount</param>
+                                    <param id="1" name="Value">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="2944649102839569">
+                            <conditions>
+                                <condition id="-7" name="Compare instance variable" sid="4307856132023912" type="Button">
+                                    <param id="0" name="Instance variable">Element</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">&quot;Water&quot;</param>
+                                </condition>
+                                <condition id="-14" name="Compare variable" sid="8221221125355067" type="System">
+                                    <param id="0" name="Variable">WaterCount</param>
+                                    <param id="1" name="Comparison">4</param>
+                                    <param id="2" name="Value">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-11" name="Subtract from" sid="3139649517176205" type="System">
+                                    <param id="0" name="Variable">WaterCount</param>
+                                    <param id="1" name="Value">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="9756658330029875">
+                            <conditions>
+                                <condition id="-7" name="Compare instance variable" sid="6202545880396577" type="Button">
+                                    <param id="0" name="Instance variable">Element</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">&quot;Earth&quot;</param>
+                                </condition>
+                                <condition id="-14" name="Compare variable" sid="9709729668862057" type="System">
+                                    <param id="0" name="Variable">EarthCount</param>
+                                    <param id="1" name="Comparison">4</param>
+                                    <param id="2" name="Value">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-11" name="Subtract from" sid="9595886564025226" type="System">
+                                    <param id="0" name="Variable">EarthCount</param>
+                                    <param id="1" name="Value">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="5726613825959093">
+                            <conditions>
+                                <condition id="-7" name="Compare instance variable" sid="2743469910004598" type="Button">
+                                    <param id="0" name="Instance variable">Element</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">&quot;Wind&quot;</param>
+                                </condition>
+                                <condition id="-14" name="Compare variable" sid="7329724579192897" type="System">
+                                    <param id="0" name="Variable">WindCount</param>
+                                    <param id="1" name="Comparison">4</param>
+                                    <param id="2" name="Value">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-11" name="Subtract from" sid="4323657540110348" type="System">
+                                    <param id="0" name="Variable">WindCount</param>
+                                    <param id="1" name="Value">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="9083244223007256" title="Physics (sort of)">
+            <sub-events>
+                <event-block sid="2997909419277863">
+                    <conditions>
+                        <condition id="9" inverted="1" name="Is overlapping at offset" sid="6042393993303931" type="Earth">
                             <param id="0" name="Object">Earth</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
                         </condition>
-                        <condition id="0" name="On collision with another object" sid="4692424907575479" type="Earth">
+                        <condition id="9" inverted="1" name="Is overlapping at offset" sid="8268791416333816" type="Earth">
                             <param id="0" name="Object">Fire</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
                         </condition>
-                        <condition id="0" name="On collision with another object" sid="9498902992152778" type="Earth">
+                        <condition id="9" inverted="1" name="Is overlapping at offset" sid="7246545578400811" type="Earth">
                             <param id="0" name="Object">Water</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
                         </condition>
-                        <condition id="0" name="On collision with another object" sid="3747130156962655" type="Earth">
+                        <condition id="9" inverted="1" name="Is overlapping at offset" sid="6980602469791414" type="Earth">
                             <param id="0" name="Object">Wind</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
                         </condition>
-                        <condition id="0" name="On collision with another object" sid="9433497908733291" type="Earth">
+                        <condition id="9" inverted="1" name="Is overlapping at offset" sid="7136257907827277" type="Earth">
                             <param id="0" name="Object">Frame</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
                         </condition>
                     </conditions>
                     <actions>
-                        <action behavior="Physics" id="15" name="Set velocity" sid="837969979001167" type="Earth">
-                            <param id="0" name="X component">0</param>
-                            <param id="1" name="Y component">0</param>
-                        </action>
-                        <action id="-2" name="Set Y" sid="9682220866327594" type="Earth">
-                            <param id="0" name="Y">(round((Self.Y-90)/100)*100) + 90</param>
+                        <action behavior="CustomMovement" id="2" name="Set speed" sid="5203597735787407" type="Earth">
+                            <param id="0" name="Which">2</param>
+                            <param id="1" name="Speed">500</param>
                         </action>
                     </actions>
                 </event-block>
-                <event-block any="1" disabled="1" sid="4575978671236625">
+                <event-block any="1" sid="9341043468229866">
                     <conditions>
-                        <condition id="0" name="On collision with another object" sid="3510345274029113" type="Fire">
+                        <condition id="9" name="Is overlapping at offset" sid="3351907180510688" type="Earth">
                             <param id="0" name="Object">Earth</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
                         </condition>
-                        <condition id="0" name="On collision with another object" sid="8445819445952737" type="Fire">
+                        <condition id="9" name="Is overlapping at offset" sid="6651174814924493" type="Earth">
                             <param id="0" name="Object">Fire</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
                         </condition>
-                        <condition id="0" name="On collision with another object" sid="7291147984453999" type="Fire">
+                        <condition id="9" name="Is overlapping at offset" sid="6785650335908318" type="Earth">
                             <param id="0" name="Object">Water</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
                         </condition>
-                        <condition id="0" name="On collision with another object" sid="5556586898190579" type="Fire">
+                        <condition id="9" name="Is overlapping at offset" sid="9303392892408289" type="Earth">
                             <param id="0" name="Object">Wind</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
                         </condition>
-                        <condition id="0" name="On collision with another object" sid="8515221137505496" type="Fire">
+                        <condition id="9" name="Is overlapping at offset" sid="7288937375002021" type="Earth">
                             <param id="0" name="Object">Frame</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
                         </condition>
                     </conditions>
                     <actions>
-                        <action behavior="Physics" id="15" name="Set velocity" sid="9813726877750382" type="Fire">
-                            <param id="0" name="X component">0</param>
-                            <param id="1" name="Y component">0</param>
-                        </action>
-                        <action id="-2" name="Set Y" sid="6868318412963387" type="Fire">
-                            <param id="0" name="Y">(round((Self.Y-90)/100)*100) + 90</param>
+                        <action behavior="CustomMovement" id="0" name="Stop" sid="3671427008530102" type="Earth" />
+                        <action id="-2" name="Set Y" sid="5592197927363203" type="Earth">
+                            <param id="0" name="Y">((floor((Self.Y -40)/100)) * 100)+90</param>
                         </action>
                     </actions>
                 </event-block>
-                <event-block any="1" disabled="1" sid="2476638803528613">
+                <event-block sid="5978067731194911">
                     <conditions>
-                        <condition id="0" name="On collision with another object" sid="3482190048798395" type="Water">
-                            <param id="0" name="Object">Earth</param>
-                        </condition>
-                        <condition id="0" name="On collision with another object" sid="229339092801111" type="Water">
+                        <condition id="9" inverted="1" name="Is overlapping at offset" sid="8020305602681078" type="Fire">
                             <param id="0" name="Object">Fire</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
                         </condition>
-                        <condition id="0" name="On collision with another object" sid="859074377708197" type="Water">
+                        <condition id="9" inverted="1" name="Is overlapping at offset" sid="6887979543096678" type="Fire">
+                            <param id="0" name="Object">Earth</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                        <condition id="9" inverted="1" name="Is overlapping at offset" sid="1883864621241164" type="Fire">
                             <param id="0" name="Object">Water</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
                         </condition>
-                        <condition id="0" name="On collision with another object" sid="648424279407071" type="Water">
+                        <condition id="9" inverted="1" name="Is overlapping at offset" sid="3006051422888015" type="Fire">
                             <param id="0" name="Object">Wind</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
                         </condition>
-                        <condition id="0" name="On collision with another object" sid="7438697753625606" type="Water">
+                        <condition id="9" inverted="1" name="Is overlapping at offset" sid="1247123264549706" type="Fire">
                             <param id="0" name="Object">Frame</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
                         </condition>
                     </conditions>
                     <actions>
-                        <action behavior="Physics" id="15" name="Set velocity" sid="5828190872742683" type="Water">
-                            <param id="0" name="X component">0</param>
-                            <param id="1" name="Y component">0</param>
-                        </action>
-                        <action id="-2" name="Set Y" sid="7118116378598224" type="Water">
-                            <param id="0" name="Y">(round((Self.Y-90)/100)*100) + 90</param>
+                        <action behavior="CustomMovement" id="2" name="Set speed" sid="9082051077503161" type="Fire">
+                            <param id="0" name="Which">2</param>
+                            <param id="1" name="Speed">500</param>
                         </action>
                     </actions>
                 </event-block>
-                <event-block any="1" disabled="1" sid="213512347421507">
+                <event-block any="1" sid="4283815163868298">
                     <conditions>
-                        <condition id="0" name="On collision with another object" sid="9570485615573873" type="Wind">
-                            <param id="0" name="Object">Earth</param>
-                        </condition>
-                        <condition id="0" name="On collision with another object" sid="7916052980932269" type="Wind">
+                        <condition id="9" name="Is overlapping at offset" sid="3177952159669558" type="Fire">
                             <param id="0" name="Object">Fire</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
                         </condition>
-                        <condition id="0" name="On collision with another object" sid="8580202198196369" type="Wind">
+                        <condition id="9" name="Is overlapping at offset" sid="3910635619526258" type="Fire">
+                            <param id="0" name="Object">Earth</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                        <condition id="9" name="Is overlapping at offset" sid="7689717849553409" type="Fire">
                             <param id="0" name="Object">Water</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
                         </condition>
-                        <condition id="0" name="On collision with another object" sid="3023200684220132" type="Wind">
+                        <condition id="9" name="Is overlapping at offset" sid="6339395760450134" type="Fire">
                             <param id="0" name="Object">Wind</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
                         </condition>
-                        <condition id="0" name="On collision with another object" sid="9802324635525533" type="Wind">
+                        <condition id="9" name="Is overlapping at offset" sid="6065423561333255" type="Fire">
                             <param id="0" name="Object">Frame</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
                         </condition>
                     </conditions>
                     <actions>
-                        <action behavior="Physics" id="15" name="Set velocity" sid="4269031831230506" type="Wind">
-                            <param id="0" name="X component">0</param>
-                            <param id="1" name="Y component">0</param>
+                        <action behavior="CustomMovement" id="0" name="Stop" sid="5106523678814931" type="Fire" />
+                        <action id="-2" name="Set Y" sid="3796828729882616" type="Fire">
+                            <param id="0" name="Y">((floor((Self.Y -40)/100)) * 100)+90</param>
                         </action>
-                        <action id="-2" name="Set Y" sid="5499278515430564" type="Wind">
-                            <param id="0" name="Y">(round((Self.Y-90)/100)*100) + 90</param>
+                    </actions>
+                </event-block>
+                <event-block sid="7010716366734186">
+                    <conditions>
+                        <condition id="9" inverted="1" name="Is overlapping at offset" sid="7324087219451223" type="Water">
+                            <param id="0" name="Object">Water</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                        <condition id="9" inverted="1" name="Is overlapping at offset" sid="2409621552584734" type="Water">
+                            <param id="0" name="Object">Earth</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                        <condition id="9" inverted="1" name="Is overlapping at offset" sid="1314655600868163" type="Water">
+                            <param id="0" name="Object">Fire</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                        <condition id="9" inverted="1" name="Is overlapping at offset" sid="9637154118596171" type="Water">
+                            <param id="0" name="Object">Wind</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                        <condition id="9" inverted="1" name="Is overlapping at offset" sid="5280272701273762" type="Water">
+                            <param id="0" name="Object">Frame</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action behavior="CustomMovement" id="2" name="Set speed" sid="8244856420966735" type="Water">
+                            <param id="0" name="Which">2</param>
+                            <param id="1" name="Speed">500</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block any="1" sid="2160812760430033">
+                    <conditions>
+                        <condition id="9" name="Is overlapping at offset" sid="4679932721433142" type="Water">
+                            <param id="0" name="Object">Water</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                        <condition id="9" name="Is overlapping at offset" sid="5607915609364761" type="Water">
+                            <param id="0" name="Object">Earth</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                        <condition id="9" name="Is overlapping at offset" sid="9812553743581128" type="Water">
+                            <param id="0" name="Object">Fire</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                        <condition id="9" name="Is overlapping at offset" sid="828669870055954" type="Water">
+                            <param id="0" name="Object">Wind</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                        <condition id="9" name="Is overlapping at offset" sid="6568858050104393" type="Water">
+                            <param id="0" name="Object">Frame</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action behavior="CustomMovement" id="0" name="Stop" sid="9871003850785297" type="Water" />
+                        <action id="-2" name="Set Y" sid="8394440058021628" type="Water">
+                            <param id="0" name="Y">((floor((Self.Y -40)/100)) * 100)+90</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="9175945627237778">
+                    <conditions>
+                        <condition id="9" inverted="1" name="Is overlapping at offset" sid="1570587189537148" type="Wind">
+                            <param id="0" name="Object">Wind</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                        <condition id="9" inverted="1" name="Is overlapping at offset" sid="9445597729929089" type="Wind">
+                            <param id="0" name="Object">Earth</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                        <condition id="9" inverted="1" name="Is overlapping at offset" sid="4600110143976707" type="Wind">
+                            <param id="0" name="Object">Fire</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                        <condition id="9" inverted="1" name="Is overlapping at offset" sid="1887588915234324" type="Wind">
+                            <param id="0" name="Object">Water</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                        <condition id="9" inverted="1" name="Is overlapping at offset" sid="6210089922022771" type="Wind">
+                            <param id="0" name="Object">Frame</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action behavior="CustomMovement" id="2" name="Set speed" sid="6269527709390103" type="Wind">
+                            <param id="0" name="Which">2</param>
+                            <param id="1" name="Speed">500</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block any="1" sid="6667435756980561">
+                    <conditions>
+                        <condition id="9" name="Is overlapping at offset" sid="4572086974322157" type="Wind">
+                            <param id="0" name="Object">Wind</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                        <condition id="9" name="Is overlapping at offset" sid="4472119828625009" type="Wind">
+                            <param id="0" name="Object">Earth</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                        <condition id="9" name="Is overlapping at offset" sid="1704886043325735" type="Wind">
+                            <param id="0" name="Object">Fire</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                        <condition id="9" name="Is overlapping at offset" sid="6803014594773787" type="Wind">
+                            <param id="0" name="Object">Water</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                        <condition id="9" name="Is overlapping at offset" sid="1647409763553381" type="Wind">
+                            <param id="0" name="Object">Frame</param>
+                            <param id="1" name="Offset X">0</param>
+                            <param id="2" name="Offset Y">5</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action behavior="CustomMovement" id="0" name="Stop" sid="1475000657414151" type="Wind" />
+                        <action id="-2" name="Set Y" sid="783182959715091" type="Wind">
+                            <param id="0" name="Y">((floor((Self.Y -40)/100)) * 100)+90</param>
                         </action>
                     </actions>
                 </event-block>

@@ -8,7 +8,7 @@
     <author-website>http://codyjero.me</author-website>
     <app-id>com.flippinpony.elixir</app-id>
     <unique-id>2m2oqhlgof90t</unique-id>
-    <saved-with-version>17800</saved-with-version>
+    <saved-with-version>18400</saved-with-version>
     <used-plugins>
         <plugin author="Scirra" id="Button" version="1">Button</plugin>
         <plugin author="Scirra" id="Keyboard" version="1">Keyboard</plugin>
@@ -17,7 +17,7 @@
         <plugin author="Scirra" id="Touch" version="1">Touch</plugin>
     </used-plugins>
     <used-behaviors>
-        <behavior author="Scirra" id="Physics" version="1">Physics</behavior>
+        <behavior author="Scirra" id="custom" version="1">Custom Movement</behavior>
         <behavior author="Scirra" id="solid" version="1">Solid</behavior>
     </used-behaviors>
     <used-effects />
@@ -28,12 +28,12 @@
         <width>1080</width>
         <height>1920</height>
     </window-size>
-    <pixel-rounding>0</pixel-rounding>
+    <pixel-rounding>1</pixel-rounding>
     <preview-effects>1</preview-effects>
     <first-layout>Layout 1</first-layout>
     <use-loader-layout>0</use-loader-layout>
     <configuration-settings>
-        <prop name="Clear background">Yes</prop>
+        <prop name="Clear background">No</prop>
         <prop name="Enable WebGL">On</prop>
         <prop name="Fullscreen in browser">Letterbox scale</prop>
         <prop name="Fullscreen scaling">High quality</prop>
@@ -45,7 +45,7 @@
         <prop name="Sampling">Linear</prop>
         <prop name="Use high-DPI display">Yes</prop>
     </configuration-settings>
-    <object-folder expanded="1">
+    <object-folder>
         <object-type name="Touch" sid="5590229651260542">
             <plugin id="Touch" />
         </object-type>
@@ -56,18 +56,21 @@
         <object-type name="Water" sid="7918174175971841">
             <plugin id="Sprite" />
             <behaviors>
-                <behavior-type name="Physics" sid="6164485752726207">
-                    <behavior id="Physics" />
+                <behavior-type name="CustomMovement" sid="9863838389479224">
+                    <behavior id="custom" />
+                </behavior-type>
+                <behavior-type name="Solid" sid="4840087685016435">
+                    <behavior id="solid" />
                 </behavior-type>
             </behaviors>
-            <animation-folder expanded="1">
+            <animation-folder>
                 <animation framecount="1" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="3443136719150341" speed="5">
                     <frame duration="1" hotspotX="0.5" hotspotY="0.5">
                         <collision-poly>
-                            <point x="0.01" y="0" />
-                            <point x="0.9875" y="0" />
-                            <point x="0.99" y="1" />
-                            <point x="0.005" y="1" />
+                            <point x="0.99" y="0.01" />
+                            <point x="0.99" y="0.99" />
+                            <point x="0.01" y="0.99" />
+                            <point x="0.01" y="0.01" />
                         </collision-poly>
                     </frame>
                 </animation>
@@ -76,18 +79,21 @@
         <object-type name="Fire" sid="7489950864764968">
             <plugin id="Sprite" />
             <behaviors>
-                <behavior-type name="Physics" sid="1355216197712064">
-                    <behavior id="Physics" />
+                <behavior-type name="CustomMovement" sid="1830946134569247">
+                    <behavior id="custom" />
+                </behavior-type>
+                <behavior-type name="Solid" sid="9968397626933293">
+                    <behavior id="solid" />
                 </behavior-type>
             </behaviors>
-            <animation-folder expanded="1">
+            <animation-folder>
                 <animation framecount="1" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="6304180759848695" speed="5">
                     <frame duration="1" hotspotX="0.5" hotspotY="0.5">
                         <collision-poly>
-                            <point x="0.0125" y="0" />
-                            <point x="0.985" y="0" />
-                            <point x="0.985" y="1" />
-                            <point x="0.0125" y="1" />
+                            <point x="0.99" y="0.01" />
+                            <point x="0.99" y="0.99" />
+                            <point x="0.01" y="0.99" />
+                            <point x="0.01" y="0.01" />
                         </collision-poly>
                     </frame>
                 </animation>
@@ -96,18 +102,21 @@
         <object-type name="Earth" sid="7101472630971398">
             <plugin id="Sprite" />
             <behaviors>
-                <behavior-type name="Physics" sid="3242079225116485">
-                    <behavior id="Physics" />
+                <behavior-type name="CustomMovement" sid="6893449512640549">
+                    <behavior id="custom" />
+                </behavior-type>
+                <behavior-type name="Solid" sid="1920922143358136">
+                    <behavior id="solid" />
                 </behavior-type>
             </behaviors>
-            <animation-folder expanded="1">
+            <animation-folder>
                 <animation framecount="1" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="2350070651717006" speed="5">
                     <frame duration="1" hotspotX="0.5" hotspotY="0.5">
                         <collision-poly>
-                            <point x="0.0125" y="0" />
-                            <point x="0.9875" y="0" />
-                            <point x="0.9875" y="1" />
-                            <point x="0.0125" y="1" />
+                            <point x="0.99" y="0.01" />
+                            <point x="0.99" y="0.99" />
+                            <point x="0.01" y="0.99" />
+                            <point x="0.01" y="0.01" />
                         </collision-poly>
                     </frame>
                 </animation>
@@ -116,18 +125,21 @@
         <object-type name="Wind" sid="3270266300032351">
             <plugin id="Sprite" />
             <behaviors>
-                <behavior-type name="Physics" sid="9072444422421206">
-                    <behavior id="Physics" />
+                <behavior-type name="CustomMovement" sid="8912663248111864">
+                    <behavior id="custom" />
+                </behavior-type>
+                <behavior-type name="Solid" sid="1103862493043342">
+                    <behavior id="solid" />
                 </behavior-type>
             </behaviors>
-            <animation-folder expanded="1">
+            <animation-folder>
                 <animation framecount="1" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="1041298411602853" speed="5">
                     <frame duration="1" hotspotX="0.5" hotspotY="0.5">
                         <collision-poly>
-                            <point x="0.0125" y="0" />
-                            <point x="0.985" y="0" />
-                            <point x="0.9875" y="1" />
-                            <point x="0.01" y="1" />
+                            <point x="0.99" y="0.01" />
+                            <point x="0.99" y="0.99" />
+                            <point x="0.01" y="0.99" />
+                            <point x="0.01" y="0.01" />
                         </collision-poly>
                     </frame>
                 </animation>
@@ -139,18 +151,15 @@
                 <behavior-type name="Solid" sid="4135870852460923">
                     <behavior id="solid" />
                 </behavior-type>
-                <behavior-type name="Physics" sid="4448767153431797">
-                    <behavior id="Physics" />
-                </behavior-type>
             </behaviors>
-            <animation-folder expanded="1">
+            <animation-folder>
                 <animation framecount="1" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="8264970147173251" speed="5">
                     <frame duration="1" hotspotX="0.5" hotspotY="0.5">
                         <collision-poly>
-                            <point x="0" y="0.992444" />
-                            <point x="0.998532" y="0.992444" />
-                            <point x="0.998532" y="0.999343" />
-                            <point x="0" y="0.999343" />
+                            <point x="0" y="0.992105" />
+                            <point x="1" y="0.992105" />
+                            <point x="1" y="1" />
+                            <point x="0" y="1" />
                         </collision-poly>
                     </frame>
                 </animation>
@@ -161,7 +170,7 @@
         </object-type>
         <object-type name="Selector" sid="360688196623739">
             <plugin id="Sprite" />
-            <animation-folder expanded="1">
+            <animation-folder>
                 <animation framecount="1" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="3794560829995064" speed="5">
                     <frame duration="1" hotspotX="0.5" hotspotY="0.5" />
                 </animation>
@@ -169,14 +178,17 @@
         </object-type>
         <object-type name="Button" sid="9204539242556031">
             <plugin id="Button" />
+            <instance-variables>
+                <instance-variable name="Element" sid="4836922097524133" type="string" />
+            </instance-variables>
         </object-type>
     </object-folder>
     <families />
-    <layout-folder expanded="1">
+    <layout-folder>
         <layout>Layout 1.xml</layout>
         <layout>Layout 2.xml</layout>
     </layout-folder>
-    <event-folder expanded="1">
+    <event-folder>
         <event-sheet>Event sheet 1.xml</event-sheet>
     </event-folder>
     <global-instances>
@@ -187,10 +199,10 @@
         </global-instance>
         <global-instance type="Keyboard" uid="3" />
     </global-instances>
-    <sounds-folder expanded="1" />
-    <music-folder expanded="1" />
-    <files-folder expanded="1">
-        <file-folder expanded="0" name="Icons">
+    <sounds-folder />
+    <music-folder />
+    <files-folder>
+        <file-folder name="Icons">
             <file name="icon-16.png" />
             <file name="icon-32.png" />
             <file name="icon-114.png" />
